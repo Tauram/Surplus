@@ -132,16 +132,21 @@ namespace Surplus
 
         // CONDITION INTEPRETER
         static string InterpretCondition(List<string> Tokens, int LineIndex){
-            switch(Tokens[1]){
-                case "equals":
-                    return Tokens[0] + " == " + Tokens[2];
-                case "greater":
-                    return Tokens[0] + " > " + Tokens[2];
-                case "less":
-                    return Tokens[0] + " < " + Tokens[2];
-                default:
-                    PrintError(1, LineIndex);
-                    return "ERROR";
+            if(Tokens.Count > 1){
+                switch(Tokens[1]){
+                    case "equals":
+                        return Tokens[0] + " == " + Tokens[2];
+                    case "greater":
+                        return Tokens[0] + " > " + Tokens[2];
+                    case "less":
+                        return Tokens[0] + " < " + Tokens[2];
+                    default:
+                        PrintError(1, LineIndex);
+                        return "ERROR";
+                }
+            } else {
+                PrintError(1, LineIndex);
+                return "ERROR";
             }
         }
 
