@@ -44,6 +44,10 @@ The Surplus compiler does NOT catch errors that a C# compiler would. This is to 
 
 This means, that just because your Surplus code can be compiled into C# code, it may not compile into an executable or have desired functionality.
 
+## Syntax reference
+
+[Compiler README](/Source/README.md)
+
 ## Examples
 
 ### Hello world
