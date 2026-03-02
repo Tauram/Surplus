@@ -61,7 +61,7 @@ namespace Surplus
                     case "function":
                         return Prefix + "void " + Tokens[1] + "(" + InterpretDatatypes(TokenRange(Tokens, 2, Tokens.Count - 2), true, Index) + "){";
                     case "declare":
-                        return InterpretDatatypes(TokenRange(Tokens, 1, Tokens.Count - 1), false, Index) + ";";
+                        return Prefix + InterpretDatatypes(TokenRange(Tokens, 1, Tokens.Count - 1), false, Index) + ";";
 
                     // VARIABLE MANAGEMENT
                     case "set":
