@@ -11,6 +11,8 @@ The goal is to have a programming language, which can be used to recreate any ex
 2. Equal processing speed
 3. Equal resource requirements
 
+In other words, Surplus should not be inherently more limited, slower or more resource heavy than other programming languages.
+
 Surplus aims to implement object-oriented programming as simply as possible, and it is NOT a language made for the programmer's convenience. If there is a way to implement it while perserving the aforementioned properties by changing your code, the language is adequate.
 
 For example, there is no for-loop in Surplus, since it can be recreated by using a while-loop and an index variable with equal speed and resource cost.
