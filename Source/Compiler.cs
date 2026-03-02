@@ -86,6 +86,8 @@ namespace Surplus
                         return "if(" + InterpretCondition(TokenRange(Tokens, 1, Tokens.Count - 1), Index) + "){";
                     case "ifnot":
                         return "if(!(" + InterpretCondition(TokenRange(Tokens, 1, Tokens.Count - 1), Index) + ")){";
+                    case "else":
+                        return "} else {";
                     case "while":
                         return "while(" + InterpretCondition(TokenRange(Tokens, 1, Tokens.Count - 1), Index) + "){";
                     case "whilenot":
