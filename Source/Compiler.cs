@@ -53,31 +53,17 @@ namespace Surplus
             }
             try {
                 switch(Tokens[0]){
-                    // CONSTRUCTORS
-                    case "end":
-                        return "}";
+                    // DECLARATIONS
                     case "namespace":
                         return Line + " {" + '\n' + "using System;" + '\n' + "using System.Collections.Generic;";
                     case "class":
                         return Prefix + "class " + Tokens[1] + " {";
                     case "function":
                         return Prefix + "void " + Tokens[1] + "(" + InterpretDatatypes(TokenRange(Tokens, 2, Tokens.Count - 2), true, Index) + "){";
-                    case "if":
-                        return "if(" + InterpretCondition(TokenRange(Tokens, 1, Tokens.Count - 1), Index) + "){";
-                    case "ifnot":
-                        return "if(!(" + InterpretCondition(TokenRange(Tokens, 1, Tokens.Count - 1), Index) + ")){";
-                    case "while":
-                        return "while(" + InterpretCondition(TokenRange(Tokens, 1, Tokens.Count - 1), Index) + "){";
-                    case "whilenot":
-                        return "while(!(" + InterpretCondition(TokenRange(Tokens, 1, Tokens.Count - 1), Index) + ")){";
-                    case "switch":
-                        return "switch(" + Tokens[1] + "){";
-                    case "case":
-                        return "case " + Tokens[1] + ":";
-
-                    // GENERAL INSTRUCTIONS
                     case "declare":
                         return InterpretDatatypes(TokenRange(Tokens, 1, Tokens.Count - 1), false, Index) + ";";
+
+                    // VARIABLE MANAGEMENT
                     case "set":
                         return Tokens[1] + " = " + Tokens[2] + ";";
                     case "setall":
@@ -92,8 +78,26 @@ namespace Surplus
                         return Tokens[2] + " = " + Tokens[1] + ".ToArray();";
                     case "tobytelist":
                         return Tokens[2] + " = " + Tokens[1] + ".ToList();";
+                    
+                    // GENERAL INSTRUCTIONS
+                    case "end":
+                        return "}";
+                    case "if":
+                        return "if(" + InterpretCondition(TokenRange(Tokens, 1, Tokens.Count - 1), Index) + "){";
+                    case "ifnot":
+                        return "if(!(" + InterpretCondition(TokenRange(Tokens, 1, Tokens.Count - 1), Index) + ")){";
+                    case "while":
+                        return "while(" + InterpretCondition(TokenRange(Tokens, 1, Tokens.Count - 1), Index) + "){";
+                    case "whilenot":
+                        return "while(!(" + InterpretCondition(TokenRange(Tokens, 1, Tokens.Count - 1), Index) + ")){";
+                    case "switch":
+                        return "switch(" + Tokens[1] + "){";
+                    case "case":
+                        return "case " + Tokens[1] + ":";
                     case "call":
                         return Tokens[1] + "(" + InterpretDatatypes(TokenRange(Tokens, 2, Tokens.Count - 2), true, Index) + ");";
+
+                    // COMMAND-LINE INSTRUCTIONS
                     case "printtext":
                         return "Console.WriteLine(System.Text.Encoding.ASCII.GetString(" + Tokens[1] + "));";
                     case "print":
