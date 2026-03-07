@@ -80,6 +80,8 @@ namespace Surplus
                         return Tokens[2] + " = " + Tokens[1] + ".ToList();";
                     
                     // GENERAL INSTRUCTIONS
+                    case "start":
+                        return "{";
                     case "end":
                         return "}";
                     case "if":
