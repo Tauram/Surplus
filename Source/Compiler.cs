@@ -55,7 +55,9 @@ namespace Surplus
                 switch(Tokens[0]){
                     // DECLARATIONS
                     case "namespace":
-                        return Line + " {" + '\n' + "using System;" + '\n' + "using System.Collections.Generic;";
+                        return Line + " {";
+                    case "import":
+                        return "using " + String.Join(".", TokenRange(Tokens, 1, Tokens.Count - 1).ToArray()) + ";";
                     case "class":
                         return Prefix + "class " + Tokens[1] + " {";
                     case "function":
