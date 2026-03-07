@@ -126,7 +126,7 @@ namespace Surplus
                             return "";
                         }
                 }
-            } catch(IndexOutOfRangeException Exc) {
+            } catch(IndexOutOfRangeException) {
                 PrintError(1, Index);
                 return "ERROR";
             }
