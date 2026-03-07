@@ -121,6 +121,22 @@ namespace Surplus
                     case "modulo":
                         return Tokens[1] + " = Convert.ToByte(" + Tokens[1] + " % " + Tokens[2] + ");";
 
+                    // BITWISE INSTRUCTIONS
+                    case "invert":
+                        return Tokens[1] + " = ~" + Tokens[1];
+                    case "lshift":
+                        return Tokens[1] + " <<= " + Tokens[2];
+                    case "rshift":
+                        return Tokens[1] + " >>= " + Tokens[2];
+                    case "urshift":
+                        return Tokens[1] + " >>>= " + Tokens[2];
+                    case "and":
+                        return Tokens[1] + " &= " + Tokens[2];
+                    case "or":
+                        return Tokens[1] + " |= " + Tokens[2];
+                    case "xor":
+                        return Tokens[1] + " ^= " + Tokens[2];
+
                     // EMPTY LINE OR SYNTAX ERROR
                     default:
                         if(Line != ""){
