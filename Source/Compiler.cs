@@ -93,8 +93,10 @@ namespace Surplus
                     // VARIABLE MANAGEMENT
                     case "set":
                         return WriteRefrence + Tokens[1] + " = " + ReadRefrence + Tokens[2] + ";";
-                    case "setall":
+                    case "setvals":
                         return WriteRefrence + Tokens[1] + " = new byte[]{" + string.Join(", ", TokenRange(Tokens, 2, Tokens.Count - 2).ToArray()) + "};";
+                    case "setclone":
+                        return "System.Array.Copy(" + ReadReference + Tokens[2] + ", " + WriteReference + Tokens[1] + ", " + ReadReference + Tokens[2] + ".Length);";
                     case "append":
                         return WriteRefrence + Tokens[1] + ".Add(" + ReadRefrence + Tokens[2] + ");";
                     case "remove":
