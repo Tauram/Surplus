@@ -105,9 +105,9 @@ namespace Surplus
 
                     // COMMAND-LINE INSTRUCTIONS
                     case "printtext":
-                        return "Console.WriteLine(System.Text.Encoding.ASCII.GetString(" + Tokens[1] + "));";
+                        return "System.Console.WriteLine(System.Text.Encoding.ASCII.GetString(" + Tokens[1] + "));";
                     case "print":
-                        return "Console.WriteLine(" + Tokens[1] + ");";
+                        return "System.Console.WriteLine(" + Tokens[1] + ");";
                     
                     // ARITHMETIC INSTRUCTIONS
                     case "add":
