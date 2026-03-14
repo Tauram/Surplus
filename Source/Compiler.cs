@@ -22,6 +22,7 @@ namespace Surplus
             List<string> Output = new List<string>();
             
             // INTERPRETATION LOOP
+            LoadedLibraries.Clear();
             StopFlag = false;
             Console.WriteLine("INFO: Interpretation start");
             for(int i = 0; i < Input.Length; i++){
@@ -55,9 +56,7 @@ namespace Surplus
                 switch(Tokens[0]){
                     // DECLARATIONS
                     case "namespace":
-                        return Line + " {";
-                    case "import":
-                        return "using " + String.Join(".", TokenRange(Tokens, 1, Tokens.Count - 1).ToArray()) + ";";
+                        return Line + " {" + '\n' + "using System;" + '\n' + "using System.Collections";
                     case "class":
                         return Prefix + "class " + Tokens[1] + " {";
                     case "function":
@@ -103,7 +102,7 @@ namespace Surplus
                     case "call":
                         return Tokens[1] + "(" + InterpretDatatypes(TokenRange(Tokens, 2, Tokens.Count - 2), true, Index) + ");";
 
-                    // COMMAND-LINE INSTRUCTIONS
+                    // SYSTEM NAMESPACE INTEGRATION
                     case "printtext":
                         return "System.Console.WriteLine(System.Text.Encoding.ASCII.GetString(" + Tokens[1] + "));";
                     case "print":
@@ -117,9 +116,9 @@ namespace Surplus
                     case "multiply":
                         return Tokens[1] + " *= " + Tokens[2] + ";";
                     case "divide":
-                        return Tokens[1] + " = Convert.ToByte(" + Tokens[1] + " / " + Tokens[2] + ");";
+                        return Tokens[1] + " = System.Convert.ToByte(" + Tokens[1] + " / " + Tokens[2] + ");";
                     case "modulo":
-                        return Tokens[1] + " = Convert.ToByte(" + Tokens[1] + " % " + Tokens[2] + ");";
+                        return Tokens[1] + " = System.Convert.ToByte(" + Tokens[1] + " % " + Tokens[2] + ");";
 
                     // BITWISE INSTRUCTIONS
                     case "invert":
