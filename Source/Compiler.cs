@@ -52,11 +52,25 @@ namespace Surplus
                     Tokens.RemoveAt(0);
                 }
             }
+            string LibraryRefrence = "";
+            if(Tokens[0] == "from"){
+                while(Tokens[0] != "execute"){
+                    LibraryRefrence += Tokens[i+1] + ".";
+                    if(Tokens.Count > 1){
+                        Tokens.RemoveAt(0);
+                    } else {
+                        PrintError(1, LineIndex);
+                        return "ERROR";
+                    }
+                }
+            }
             try {
                 switch(Tokens[0]){
                     // DECLARATIONS
                     case "namespace":
-                        return Line + " {" + '\n' + "using System;" + '\n' + "using System.Collections";
+                        return Line + " {";
+                    case "import":
+                        return "using " + String.Join(".", TokenRange(Tokens, 1, Tokens.Count - 1).ToArray()) + ";";
                     case "class":
                         return Prefix + "class " + Tokens[1] + " {";
                     case "function":
