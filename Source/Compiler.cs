@@ -52,10 +52,22 @@ namespace Surplus
                     Tokens.RemoveAt(0);
                 }
             }
-            string LibraryRefrence = "";
-            if(Tokens[0] == "from"){
+            string ReadRefrence = "";
+            if(Tokens[0] == "readform"){
                 while(Tokens[0] != "execute"){
-                    LibraryRefrence += Tokens[i+1] + ".";
+                    ReadRefrence += Tokens[i+1] + ".";
+                    if(Tokens.Count > 1){
+                        Tokens.RemoveAt(0);
+                    } else {
+                        PrintError(1, LineIndex);
+                        return "ERROR";
+                    }
+                }
+            }
+            string WriteRefrence = "";
+            if(Tokens[0] == "writeto"){
+                while(Tokens[0] != "execute"){
+                    WriteRefrence += Tokens[i+1] + ".";
                     if(Tokens.Count > 1){
                         Tokens.RemoveAt(0);
                     } else {
