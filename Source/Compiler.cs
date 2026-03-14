@@ -100,8 +100,18 @@ namespace Surplus
                         return WriteReference + Tokens[1] + " = " + ReadReference + Tokens[2] + ";";
                     case "setvals":
                         return WriteReference + Tokens[1] + " = new byte[]{" + string.Join(", ", TokenRange(Tokens, 2, Tokens.Count - 2).ToArray()) + "};";
+                    case "setvals16":
+                        return WriteReference + Tokens[1] + " = new ushort[]{" + string.Join(", ", TokenRange(Tokens, 2, Tokens.Count - 2).ToArray()) + "};";
+                    case "setvals32":
+                        return WriteReference + Tokens[1] + " = new uint[]{" + string.Join(", ", TokenRange(Tokens, 2, Tokens.Count - 2).ToArray()) + "};";
                     case "setclone":
                         return "System.Array.Copy(" + ReadReference + Tokens[2] + ", " + WriteReference + Tokens[1] + ", " + ReadReference + Tokens[2] + ".Length);";
+                    case "setlength":
+                        return WriteReference + Tokens[1] + " = new byte[" + Tokens[2] + "];";
+                    case "setlength16":
+                        return WriteReference + Tokens[1] + " = new ushort[" + Tokens[2] + "];";
+                    case "setlength32":
+                        return WriteReference + Tokens[1] + " = new uint[" + Tokens[2] + "];";
                     case "append":
                         return WriteReference + Tokens[1] + ".Add(" + ReadReference + Tokens[2] + ");";
                     case "remove":
