@@ -92,19 +92,19 @@ namespace Surplus
 
                     // VARIABLE MANAGEMENT
                     case "set":
-                        return Tokens[1] + " = " + Tokens[2] + ";";
+                        return WriteRefrence + Tokens[1] + " = " + ReadRefrence + Tokens[2] + ";";
                     case "setall":
-                        return Tokens[1] + " = new byte[]{" + string.Join(", ", TokenRange(Tokens, 2, Tokens.Count - 2).ToArray()) + "};";
+                        return WriteRefrence + Tokens[1] + " = new byte[]{" + string.Join(", ", TokenRange(Tokens, 2, Tokens.Count - 2).ToArray()) + "};";
                     case "append":
-                        return Tokens[1] + ".Add(" + Tokens[2] + ");";
+                        return WriteRefrence + Tokens[1] + ".Add(" + ReadRefrence + Tokens[2] + ");";
                     case "remove":
-                        return Tokens[1] + ".RemoveAt(" + Tokens[2] + ");";
+                        return WriteRefrence + Tokens[1] + ".RemoveAt(" + ReadRefrence + Tokens[2] + ");";
                     case "appendall":
-                        return Tokens[1] + ".AddRange(" + Tokens[2] + ");";
+                        return WriteRefrence + Tokens[1] + ".AddRange(" + ReadRefrence + Tokens[2] + ");";
                     case "tobytes":
-                        return Tokens[2] + " = " + Tokens[1] + ".ToArray();";
+                        return WriteRefrence + Tokens[2] + " = " + ReadRefrence + Tokens[1] + ".ToArray();";
                     case "tobytelist":
-                        return Tokens[2] + " = " + Tokens[1] + ".ToList();";
+                        return WriteRefrence + Tokens[2] + " = " + ReadRefrence + Tokens[1] + ".ToList();";
                     
                     // GENERAL INSTRUCTIONS
                     case "start":
@@ -126,7 +126,7 @@ namespace Surplus
                     case "case":
                         return "case " + Tokens[1] + ":";
                     case "call":
-                        return Tokens[1] + "(" + InterpretDatatypes(TokenRange(Tokens, 2, Tokens.Count - 2), true, Index) + ");";
+                        return WriteRefrence + ReadRefrence + Tokens[1] + "(" + InterpretDatatypes(TokenRange(Tokens, 2, Tokens.Count - 2), true, Index) + ");";
 
                     // SYSTEM NAMESPACE INTEGRATION
                     case "printtext":
