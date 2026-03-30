@@ -240,7 +240,8 @@ namespace Surplus
 
         // GET TOKENRANGE AS STRING
         static string TokenRangeString(List<string> Tokens, int LineIndex, string Seperator, int Start = 0, int Count = -1, string StartKeyword = "", string EndKeyword = "", bool TrailingChar = false){
-            return string.Join(Seperator, TokenRange(Tokens, LineIndex, Start, Count, StartKeyword, EndKeyword).ToArray()) + ((TrailingChar && Tokens.Count > 0)? Seperator : "");
+            List<string> TempList = TokenRange(Tokens, LineIndex, Start, Count, StartKeyword, EndKeyword);
+            return string.Join(Seperator, TempList.ToArray()) + ((TrailingChar && TempList.Count > 0)? Seperator : "");
         }
 
         // ERROR LOGGER
