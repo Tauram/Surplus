@@ -51,36 +51,6 @@ namespace Surplus
                     Tokens.RemoveAt(0);
                 }
             }
-            string ReadReference = "";
-            if(Tokens[0] == "readfrom"){
-                while(Tokens[0] != "execute"){
-                    if(Tokens.Count > 1){
-                        Tokens.RemoveAt(0);
-                        if(Tokens[0] != "execute"){
-                            ReadReference += Tokens[0] + ".";
-                        }
-                    } else {
-                        PrintError(1, Index);
-                        return "ERROR";
-                    }
-                }
-                Tokens.RemoveAt(0);
-            }
-            string WriteReference = "";
-            if(Tokens[0] == "writeto"){
-                while(Tokens[0] != "execute"){
-                    if(Tokens.Count > 1){
-                        Tokens.RemoveAt(0);
-                        if(Tokens[0] != "execute"){
-                            WriteReference += Tokens[0] + ".";
-                        }
-                    } else {
-                        PrintError(1, Index);
-                        return "ERROR";
-                    }
-                }
-                Tokens.RemoveAt(0);
-            }
             try {
                 switch(Tokens[0]){
                     // DECLARATIONS
@@ -97,31 +67,31 @@ namespace Surplus
 
                     // VARIABLE MANAGEMENT
                     case "set":
-                        return WriteReference + Tokens[1] + " = " + ReadReference + Tokens[2] + ";";
+                        return Tokens[1] + " = " + Tokens[2] + ";";
                     case "setvals":
-                        return WriteReference + Tokens[1] + " = new byte[]{" + string.Join(", ", TokenRange(Tokens, 2, Tokens.Count - 2).ToArray()) + "};";
+                        return Tokens[1] + " = new byte[]{" + string.Join(", ", TokenRange(Tokens, 2, Tokens.Count - 2).ToArray()) + "};";
                     case "setvals16":
-                        return WriteReference + Tokens[1] + " = new ushort[]{" + string.Join(", ", TokenRange(Tokens, 2, Tokens.Count - 2).ToArray()) + "};";
+                        return Tokens[1] + " = new ushort[]{" + string.Join(", ", TokenRange(Tokens, 2, Tokens.Count - 2).ToArray()) + "};";
                     case "setvals32":
-                        return WriteReference + Tokens[1] + " = new uint[]{" + string.Join(", ", TokenRange(Tokens, 2, Tokens.Count - 2).ToArray()) + "};";
+                        return Tokens[1] + " = new uint[]{" + string.Join(", ", TokenRange(Tokens, 2, Tokens.Count - 2).ToArray()) + "};";
                     case "setclone":
-                        return "System.Array.Copy(" + ReadReference + Tokens[2] + ", " + WriteReference + Tokens[1] + ", " + ReadReference + Tokens[2] + ".Length);";
+                        return "System.Array.Copy(" + Tokens[2] + ", " + Tokens[1] + ", " + Tokens[2] + ".Length);";
                     case "setlength":
-                        return WriteReference + Tokens[1] + " = new byte[" + Tokens[2] + "];";
+                        return Tokens[1] + " = new byte[" + Tokens[2] + "];";
                     case "setlength16":
-                        return WriteReference + Tokens[1] + " = new ushort[" + Tokens[2] + "];";
+                        return Tokens[1] + " = new ushort[" + Tokens[2] + "];";
                     case "setlength32":
-                        return WriteReference + Tokens[1] + " = new uint[" + Tokens[2] + "];";
+                        return Tokens[1] + " = new uint[" + Tokens[2] + "];";
                     case "append":
-                        return WriteReference + Tokens[1] + ".Add(" + ReadReference + Tokens[2] + ");";
+                        return Tokens[1] + ".Add(" + Tokens[2] + ");";
                     case "remove":
-                        return WriteReference + Tokens[1] + ".RemoveAt(" + ReadReference + Tokens[2] + ");";
+                        return Tokens[1] + ".RemoveAt(" + Tokens[2] + ");";
                     case "appendall":
-                        return WriteReference + Tokens[1] + ".AddRange(" + ReadReference + Tokens[2] + ");";
+                        return Tokens[1] + ".AddRange(" + Tokens[2] + ");";
                     case "tobytes":
-                        return WriteReference + Tokens[2] + " = " + ReadReference + Tokens[1] + ".ToArray();";
+                        return Tokens[2] + " = " + Tokens[1] + ".ToArray();";
                     case "tobytelist":
-                        return WriteReference + Tokens[2] + " = " + ReadReference + Tokens[1] + ".ToList();";
+                        return Tokens[2] + " = " + Tokens[1] + ".ToList();";
                     
                     // GENERAL INSTRUCTIONS
                     case "start":
@@ -143,7 +113,7 @@ namespace Surplus
                     case "case":
                         return "case " + Tokens[1] + ":";
                     case "call":
-                        return WriteReference + ReadReference + Tokens[1] + "(" + InterpretDatatypes(TokenRange(Tokens, 2, Tokens.Count - 2), true, Index) + ");";
+                        return Tokens[1] + "(" + InterpretDatatypes(TokenRange(Tokens, 2, Tokens.Count - 2), true, Index) + ");";
 
                     // SYSTEM NAMESPACE INTEGRATION
                     case "printtext":
