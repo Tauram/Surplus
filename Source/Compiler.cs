@@ -97,7 +97,7 @@ namespace Surplus
                     case "case":
                         return "case " + TokenRangeString(Tokens, Index, ".", 1) + ":";
                     case "call":
-                        return TokenRangeString(Tokens, Index, ".", 1, -1, "", "with") + "(" + TokenRangeString(Tokens, Index, -1, -1, "with") + ");";
+                        return TokenRangeString(Tokens, Index, ".", 1, -1, "", "with") + "(" + TokenRangeString(Tokens, Index, ".", -1, -1, "with").Replace(".and.", ", ") + ");";
 
                     // SYSTEM NAMESPACE INTEGRATION
                     case "printtext":
@@ -248,7 +248,7 @@ namespace Surplus
             List<string> TempList = new List<string>();
             for (int i = 0; i < Tokens.Count; i++){
                 if(Tokens[i] == InWord){
-                    TempList.Add(Outword);
+                    TempList.Add(OutWord);
                 } else {
                     TempList.Add(Tokens[i]);
                 }
