@@ -265,6 +265,11 @@ namespace Surplus
             return TempList;
         }
 
+        // GET TOKENRANGE AS STRING
+        static string TokenRangeString(List<string> Tokens, int LineIndex, string Seperator, int Start = 0, int Count = -1, string StartKeyword = "", string EndKeyword = ""){
+            return string.Join(Seperator, TokenRange(Tokens, LineIndex, Start, Count, StartKeyword, EndKeyword).ToArray());
+        }
+
         // ERROR LOGGER
         static void PrintError(int Index, int LineIndex){
             switch(Index){
