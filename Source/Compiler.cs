@@ -39,7 +39,7 @@ namespace Surplus
         
         // INSTRUCTION INTERPRETER
         static string Interpret(string Line, int Index){
-            Line = Line.TrimStart();
+            Line = Line.TrimStart().TrimEnd();
             Console.WriteLine("INFO: Interpreting line " + Index);
             List<string> Tokens = Line.Split(' ').ToList();
             try {
