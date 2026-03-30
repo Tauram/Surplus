@@ -57,23 +57,23 @@ namespace Surplus
                     case "namespace":
                         return Line + " {";
                     case "import":
-                        return "using " + String.Join(".", TokenRange(Tokens, 1, Tokens.Count - 1, "").ToArray()) + ";";
+                        return "using " + String.Join(".", TokenRange(Tokens, Index, 1, Tokens.Count - 1).ToArray()) + ";";
                     case "class":
                         return Prefix + "class " + Tokens[1] + " {";
                     case "function":
-                        return Prefix + "void " + Tokens[1] + "(" + InterpretDatatypes(TokenRange(Tokens, 2, Tokens.Count - 2, ""), true, Index) + "){";
+                        return Prefix + "void " + Tokens[1] + "(" + InterpretDatatypes(TokenRange(Tokens, Index, 2, Tokens.Count - 2), true, Index) + "){";
                     case "declare":
-                        return Prefix + InterpretDatatypes(TokenRange(Tokens, 1, Tokens.Count - 1, ""), false, Index) + ";";
+                        return Prefix + InterpretDatatypes(TokenRange(Tokens, Index, 1, Tokens.Count - 1), false, Index) + ";";
 
                     // VARIABLE MANAGEMENT
                     case "set":
                         return Tokens[1] + " = " + Tokens[2] + ";";
                     case "setvals":
-                        return Tokens[1] + " = new byte[]{" + string.Join(", ", TokenRange(Tokens, 2, Tokens.Count - 2, "").ToArray()) + "};";
+                        return Tokens[1] + " = new byte[]{" + string.Join(", ", TokenRange(Tokens, Index, 2, Tokens.Count - 2).ToArray()) + "};";
                     case "setvals16":
-                        return Tokens[1] + " = new ushort[]{" + string.Join(", ", TokenRange(Tokens, 2, Tokens.Count - 2, "").ToArray()) + "};";
+                        return Tokens[1] + " = new ushort[]{" + string.Join(", ", TokenRange(Tokens, Index, 2, Tokens.Count - 2).ToArray()) + "};";
                     case "setvals32":
-                        return Tokens[1] + " = new uint[]{" + string.Join(", ", TokenRange(Tokens, 2, Tokens.Count - 2, "").ToArray()) + "};";
+                        return Tokens[1] + " = new uint[]{" + string.Join(", ", TokenRange(Tokens, Index, 2, Tokens.Count - 2).ToArray()) + "};";
                     case "setclone":
                         return "System.Array.Copy(" + Tokens[2] + ", " + Tokens[1] + ", " + Tokens[2] + ".Length);";
                     case "setlength":
@@ -99,21 +99,21 @@ namespace Surplus
                     case "end":
                         return "}";
                     case "if":
-                        return "if(" + InterpretCondition(TokenRange(Tokens, 1, Tokens.Count - 1, ""), Index) + "){";
+                        return "if(" + InterpretCondition(TokenRange(Tokens, Index, 1, Tokens.Count - 1), Index) + "){";
                     case "ifnot":
-                        return "if(!(" + InterpretCondition(TokenRange(Tokens, 1, Tokens.Count - 1, ""), Index) + ")){";
+                        return "if(!(" + InterpretCondition(TokenRange(Tokens, Index, 1, Tokens.Count - 1), Index) + ")){";
                     case "else":
                         return "} else {";
                     case "while":
-                        return "while(" + InterpretCondition(TokenRange(Tokens, 1, Tokens.Count - 1, ""), Index) + "){";
+                        return "while(" + InterpretCondition(TokenRange(Tokens, Index, 1, Tokens.Count - 1), Index) + "){";
                     case "whilenot":
-                        return "while(!(" + InterpretCondition(TokenRange(Tokens, 1, Tokens.Count - 1, ""), Index) + ")){";
+                        return "while(!(" + InterpretCondition(TokenRange(Tokens, Index, 1, Tokens.Count - 1), Index) + ")){";
                     case "switch":
                         return "switch(" + Tokens[1] + "){";
                     case "case":
                         return "case " + Tokens[1] + ":";
                     case "call":
-                        return Tokens[1] + "(" + InterpretDatatypes(TokenRange(Tokens, 2, Tokens.Count - 2, ""), true, Index) + ");";
+                        return Tokens[1] + "(" + InterpretDatatypes(TokenRange(Tokens, Index, 2, Tokens.Count - 2), true, Index) + ");";
 
                     // SYSTEM NAMESPACE INTEGRATION
                     case "printtext":
@@ -245,10 +245,19 @@ namespace Surplus
         }
 
         // GET RANGE OF TOKENS
-        static List<string> TokenRange(List<string> Tokens, int Start, int Count, string Keyword){
+        static List<string> TokenRange(List<string> Tokens, int LineIndex, int Start = 0, int Count = -1, string StartKeyword = "", string EndKeyword = ""){
             List<string> TempList = new List<string>();
+            if(StartKeyword != ""){
+                int FoundIndex = Tokens.IndexOf(StartKeyword);
+                if(FoundIndex != -1){
+                    Start = FoundIndex;
+                }
+            }
+            if(Count == -1){
+                Count = Tokens.Count - Start;
+            }
             for(int i = Start; i < Count + Start; i++){
-                if(Tokens[i] == Keyword && Keyword != ""){
+                if(EndKeyword != "" && Tokens[i] == EndKeyword){
                     break;
                 }
                 TempList.Add(Tokens[i]);
