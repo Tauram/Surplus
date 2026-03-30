@@ -97,12 +97,6 @@ namespace Surplus
                         return "case " + ParseForStrings(TokenRangeString(Tokens, Index, ".", 1)) + ":";
                     case "call":
                         return TokenRangeString(Tokens, Index, ".", 1, -1, "", "with") + "(" + ParseForStrings(TokenRangeString(Tokens, Index, ".", -1, -1, "with").Replace(".and.", ", ")) + ");";
-
-                    // SYSTEM NAMESPACE INTEGRATION
-                    case "printtext":
-                        return "System.Console.WriteLine(System.Text.Encoding.ASCII.GetString(" + TokenRangeString(Tokens, Index, ".", 1) + "));";
-                    case "print":
-                        return "System.Console.WriteLine(" + ParseForStrings(TokenRangeString(Tokens, Index, ".", 1)) + ");";
                     
                     // ARITHMETIC INSTRUCTIONS
                     case "increase":
