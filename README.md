@@ -55,12 +55,12 @@ This means, that just because your Surplus code can be compiled into C# code, it
 
 ### Hello world
 
- ```
+```
 namespace helloworld
     class program as static
         function Main as static
-            print quote Hello World! quote
+            call System Console WriteLine with quote Hello World! quote
         end
     end
 end
- ```
+```
