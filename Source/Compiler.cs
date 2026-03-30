@@ -67,15 +67,15 @@ namespace Surplus
 
                     // VARIABLE MANAGEMENT
                     case "set":
-                        return Tokens[1] + " = " + Tokens[2] + ";";
+                        return TokenRangeString(Tokens, Index, ".", 1, -1, "", "to") + " = " + TokenRangeString(Tokens, Index, ".", -1, -1, "to") + ";";
                     case "setclone":
-                        return "System.Array.Copy(" + Tokens[2] + ", " + Tokens[1] + ", " + Tokens[2] + ".Length);";
+                        return "System.Array.Copy(" + TokenRangeString(Tokens, Index, ".", 1, -1, "", "to") + ", " + TokenRangeString(Tokens, Index, ".", -1, -1, "to") + ", " + TokenRangeString(Tokens, Index, ".", 1, -1, "", "to") + ".Length);";
                     case "append":
-                        return Tokens[1] + ".Add(" + Tokens[2] + ");";
+                        return TokenRangeString(Tokens, Index, ".", -1, -1, "to") + ".Add(" + TokenRangeString(Tokens, Index, ".", 1, -1, "", "to") + ");";
                     case "remove":
-                        return Tokens[1] + ".RemoveAt(" + Tokens[2] + ");";
+                        return TokenRangeString(Tokens, Index, ".", -1, -1, "from") + ".RemoveAt(" + TokenRangeString(Tokens, Index, ".", 1, -1, "", "from") + ");";
                     case "appendall":
-                        return Tokens[1] + ".AddRange(" + Tokens[2] + ");";
+                        return TokenRangeString(Tokens, Index, ".", -1, -1, "to") + ".AddRange(" + TokenRangeString(Tokens, Index, ".", 1, -1, "", "to") + ");";
                     
                     // GENERAL INSTRUCTIONS
                     case "start":
@@ -93,45 +93,45 @@ namespace Surplus
                     case "whilenot":
                         return "while(!(" + InterpretCondition(TokenRange(Tokens, Index, 1, Tokens.Count - 1), Index) + ")){";
                     case "switch":
-                        return "switch(" + Tokens[1] + "){";
+                        return "switch(" + TokenRangeString(Tokens, Index, ".", 1) + "){";
                     case "case":
-                        return "case " + Tokens[1] + ":";
+                        return "case " + TokenRangeString(Tokens, Index, ".", 1) + ":";
                     case "call":
-                        return Tokens[1] + "(" + InterpretDatatypes(TokenRange(Tokens, Index, 2, Tokens.Count - 2), true, Index) + ");";
+                        return TokenRangeString(Tokens, Index, ".", 1, -1, "", "with") + "(" + InterpretDatatypes(TokenRange(Tokens, Index, -1, -1, "with"), true, Index) + ");";
 
                     // SYSTEM NAMESPACE INTEGRATION
                     case "printtext":
-                        return "System.Console.WriteLine(System.Text.Encoding.ASCII.GetString(" + Tokens[1] + "));";
+                        return "System.Console.WriteLine(System.Text.Encoding.ASCII.GetString(" + TokenRangeString(Tokens, Index, ".", 1) + "));";
                     case "print":
-                        return "System.Console.WriteLine(" + Tokens[1] + ");";
+                        return "System.Console.WriteLine(" + TokenRangeString(Tokens, Index, ".", 1) + ");";
                     
                     // ARITHMETIC INSTRUCTIONS
                     case "add":
-                        return Tokens[1] + " += " + Tokens[2] + ";";
+                        return TokenRangeString(Tokens, Index, ".", 1, -1, "", "by") + " += " + TokenRangeString(Tokens, Index, ".", -1, -1, "by") + ";";
                     case "substract":
-                        return Tokens[1] + " -= " + Tokens[2] + ";";
+                        return TokenRangeString(Tokens, Index, ".", 1, -1, "", "by") + " -= " + TokenRangeString(Tokens, Index, ".", -1, -1, "by") + ";";
                     case "multiply":
-                        return Tokens[1] + " *= " + Tokens[2] + ";";
+                        return TokenRangeString(Tokens, Index, ".", 1, -1, "", "by") + " *= " + TokenRangeString(Tokens, Index, ".", -1, -1, "by") + ";";
                     case "divide":
-                        return Tokens[1] + " = " + Tokens[1] + " / " + Tokens[2] + ";";
+                        return TokenRangeString(Tokens, Index, ".", 1, -1, "", "by") + " = " + TokenRangeString(Tokens, Index, ".", 1, -1, "", "by") + " / " + TokenRangeString(Tokens, Index, ".", -1, -1, "by") + ";";
                     case "modulo":
-                        return Tokens[1] + " = " + Tokens[1] + " % " + Tokens[2] + ";";
+                        return TokenRangeString(Tokens, Index, ".", 1, -1, "", "by") + " = " + TokenRangeString(Tokens, Index, ".", 1, -1, "", "by") + " % " + TokenRangeString(Tokens, Index, ".", -1, -1, "by") + ";";
 
                     // BITWISE INSTRUCTIONS
                     case "invert":
-                        return Tokens[1] + " = ~" + Tokens[1];
+                        return TokenRangeString(Tokens, Index, ".", -1, -1, "to") + " = ~" + TokenRangeString(Tokens, Index, ".", 1, -1, "", "to");
                     case "lshift":
-                        return Tokens[1] + " <<= " + Tokens[2];
+                        return TokenRangeString(Tokens, Index, ".", -1, -1, "to") + " <<= " + TokenRangeString(Tokens, Index, ".", 1, -1, "", "to");
                     case "rshift":
-                        return Tokens[1] + " >>= " + Tokens[2];
+                        return TokenRangeString(Tokens, Index, ".", -1, -1, "to") + " >>= " + TokenRangeString(Tokens, Index, ".", 1, -1, "", "to");
                     case "urshift":
-                        return Tokens[1] + " >>>= " + Tokens[2];
+                        return TokenRangeString(Tokens, Index, ".", -1, -1, "to") + " >>>= " + TokenRangeString(Tokens, Index, ".", 1, -1, "", "to");
                     case "and":
-                        return Tokens[1] + " &= " + Tokens[2];
+                        return TokenRangeString(Tokens, Index, ".", -1, -1, "to") + " &= " + TokenRangeString(Tokens, Index, ".", 1, -1, "", "to");
                     case "or":
-                        return Tokens[1] + " |= " + Tokens[2];
+                        return TokenRangeString(Tokens, Index, ".", -1, -1, "to") + " |= " + TokenRangeString(Tokens, Index, ".", 1, -1, "", "to");
                     case "xor":
-                        return Tokens[1] + " ^= " + Tokens[2];
+                        return TokenRangeString(Tokens, Index, ".", -1, -1, "to") + " ^= " + TokenRangeString(Tokens, Index, ".", 1, -1, "", "to");
 
                     // EMPTY LINE OR SYNTAX ERROR
                     default:
@@ -153,11 +153,11 @@ namespace Surplus
             if(Tokens.Count > 1){
                 switch(Tokens[1]){
                     case "equals":
-                        return Tokens[0] + " == " + Tokens[2];
+                        return TokenRangeString(Tokens, Index, ".", 0, -1, "", "equals") + " == " + TokenRangeString(Tokens, Index, ".", -1, -1, "equals");
                     case "greater":
-                        return Tokens[0] + " > " + Tokens[2];
+                        return TokenRangeString(Tokens, Index, ".", 0, -1, "", "greater") + " > " + TokenRangeString(Tokens, Index, ".", -1, -1, "greater");
                     case "less":
-                        return Tokens[0] + " < " + Tokens[2];
+                        return TokenRangeString(Tokens, Index, ".", 0, -1, "", "less") + " < " + TokenRangeString(Tokens, Index, ".", -1, -1, "less");
                     default:
                         PrintError(1, LineIndex);
                         return "ERROR";
@@ -221,6 +221,9 @@ namespace Surplus
                 int FoundIndex = Tokens.IndexOf(StartKeyword);
                 if(FoundIndex != -1 && FoundIndex < Tokens.Count - 1){
                     Start = FoundIndex + 1;
+                }
+                if(FoundIndex == -1){
+                    return TempList;
                 }
             }
             if(Count == -1){
