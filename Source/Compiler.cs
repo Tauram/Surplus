@@ -69,28 +69,18 @@ namespace Surplus
                     case "set":
                         return Tokens[1] + " = " + Tokens[2] + ";";
                     case "setvals":
-                        return Tokens[1] + " = new byte[]{" + string.Join(", ", TokenRange(Tokens, Index, 2, Tokens.Count - 2).ToArray()) + "};";
-                    case "setvals16":
-                        return Tokens[1] + " = new ushort[]{" + string.Join(", ", TokenRange(Tokens, Index, 2, Tokens.Count - 2).ToArray()) + "};";
-                    case "setvals32":
-                        return Tokens[1] + " = new uint[]{" + string.Join(", ", TokenRange(Tokens, Index, 2, Tokens.Count - 2).ToArray()) + "};";
+                        return Tokens[1] + " = new[]{" + string.Join(", ", TokenRange(Tokens, Index, 2, Tokens.Count - 2).ToArray()) + "};";
                     case "setclone":
                         return "System.Array.Copy(" + Tokens[2] + ", " + Tokens[1] + ", " + Tokens[2] + ".Length);";
-                    case "setlength":
-                        return Tokens[1] + " = new byte[" + Tokens[2] + "];";
-                    case "setlength16":
-                        return Tokens[1] + " = new ushort[" + Tokens[2] + "];";
-                    case "setlength32":
-                        return Tokens[1] + " = new uint[" + Tokens[2] + "];";
                     case "append":
                         return Tokens[1] + ".Add(" + Tokens[2] + ");";
                     case "remove":
                         return Tokens[1] + ".RemoveAt(" + Tokens[2] + ");";
                     case "appendall":
                         return Tokens[1] + ".AddRange(" + Tokens[2] + ");";
-                    case "tobytes":
+                    case "toarray":
                         return Tokens[2] + " = " + Tokens[1] + ".ToArray();";
-                    case "tobytelist":
+                    case "tolist":
                         return Tokens[2] + " = " + Tokens[1] + ".ToList();";
                     
                     // GENERAL INSTRUCTIONS
@@ -129,9 +119,9 @@ namespace Surplus
                     case "multiply":
                         return Tokens[1] + " *= " + Tokens[2] + ";";
                     case "divide":
-                        return Tokens[1] + " = System.Convert.ToByte(" + Tokens[1] + " / " + Tokens[2] + ");";
+                        return Tokens[1] + " = " + Tokens[1] + " / " + Tokens[2] + ";";
                     case "modulo":
-                        return Tokens[1] + " = System.Convert.ToByte(" + Tokens[1] + " % " + Tokens[2] + ");";
+                        return Tokens[1] + " = " + Tokens[1] + " % " + Tokens[2] + ";";
 
                     // BITWISE INSTRUCTIONS
                     case "invert":
