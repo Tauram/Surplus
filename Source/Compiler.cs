@@ -71,6 +71,8 @@ namespace Surplus
                         return TokenRangeString(Tokens, Index, ".", -1, -1, "from") + ".RemoveAt(" + TokenRangeString(Tokens, Index, ".", 1, -1, "", "from") + ");";
                     case "appendall":
                         return TokenRangeString(Tokens, Index, ".", -1, -1, "to") + ".AddRange(" + TokenRangeString(Tokens, Index, ".", 1, -1, "", "to") + ");";
+                    case "setlength":
+                        return TokenRangeString(Tokens, Index, ".", 1, -1, "", "to") + " = new " + TokenRangeString(Tokens, Index, ".", -1, -1, "with") + "[" + TokenRangeString(Tokens, Index, ".", -1, -1, "to", "with") + "];";
                     
                     // GENERAL INSTRUCTIONS
                     case "start":
