@@ -249,8 +249,8 @@ namespace Surplus
             List<string> TempList = new List<string>();
             if(StartKeyword != ""){
                 int FoundIndex = Tokens.IndexOf(StartKeyword);
-                if(FoundIndex != -1){
-                    Start = FoundIndex;
+                if(FoundIndex != -1 && FoundIndex < Tokens.Count - 1){
+                    Start = FoundIndex + 1;
                 }
             }
             if(Count == -1){
