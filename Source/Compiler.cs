@@ -76,10 +76,6 @@ namespace Surplus
                         return Tokens[1] + ".RemoveAt(" + Tokens[2] + ");";
                     case "appendall":
                         return Tokens[1] + ".AddRange(" + Tokens[2] + ");";
-                    case "toarray":
-                        return Tokens[2] + " = " + Tokens[1] + ".ToArray();";
-                    case "tolist":
-                        return Tokens[2] + " = " + Tokens[1] + ".ToList();";
                     
                     // GENERAL INSTRUCTIONS
                     case "start":
