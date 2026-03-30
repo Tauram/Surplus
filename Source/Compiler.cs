@@ -68,8 +68,6 @@ namespace Surplus
                     // VARIABLE MANAGEMENT
                     case "set":
                         return Tokens[1] + " = " + Tokens[2] + ";";
-                    case "setvals":
-                        return Tokens[1] + " = new[]{" + string.Join(", ", TokenRange(Tokens, Index, 2, Tokens.Count - 2).ToArray()) + "};";
                     case "setclone":
                         return "System.Array.Copy(" + Tokens[2] + ", " + Tokens[1] + ", " + Tokens[2] + ".Length);";
                     case "append":
