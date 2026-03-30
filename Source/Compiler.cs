@@ -106,9 +106,9 @@ namespace Surplus
                         return "System.Console.WriteLine(" + TokenRangeString(Tokens, Index, ".", 1) + ");";
                     
                     // ARITHMETIC INSTRUCTIONS
-                    case "add":
+                    case "increase":
                         return TokenRangeString(Tokens, Index, ".", 1, -1, "", "by") + " += " + TokenRangeString(Tokens, Index, ".", -1, -1, "by") + ";";
-                    case "substract":
+                    case "decrease":
                         return TokenRangeString(Tokens, Index, ".", 1, -1, "", "by") + " -= " + TokenRangeString(Tokens, Index, ".", -1, -1, "by") + ";";
                     case "multiply":
                         return TokenRangeString(Tokens, Index, ".", 1, -1, "", "by") + " *= " + TokenRangeString(Tokens, Index, ".", -1, -1, "by") + ";";
