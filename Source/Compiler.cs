@@ -63,7 +63,7 @@ namespace Surplus
                         return TokenRangeString(Tokens, Index, ".", -1, -1, "in", "to") + "[" + TokenRangeString(Tokens, Index, ".", 1, -1, "", "in") + "] = " + ParseForStrings(TokenRangeString(Tokens, Index, ".", -1, -1, "to")) + ";";
                     case "getindex":
                         return TokenRangeString(Tokens, Index, ".", -1, -1, "to") + " = " + ParseForStrings(TokenRangeString(Tokens, Index, ".", -1, -1, "in", "to")) + "[" + TokenRangeString(Tokens, Index, ".", 1, -1, "", "in") + "];";
-                    case "setclone":
+                    case "copyarray":
                         return "System.Array.Copy(" + TokenRangeString(Tokens, Index, ".", 1, -1, "", "to") + ", " + TokenRangeString(Tokens, Index, ".", -1, -1, "to") + ", " + TokenRangeString(Tokens, Index, ".", 1, -1, "", "to") + ".Length);";
                     case "append":
                         return TokenRangeString(Tokens, Index, ".", -1, -1, "to") + ".Add(" + ParseForStrings(TokenRangeString(Tokens, Index, ".", 1, -1, "", "to")) + ");";
