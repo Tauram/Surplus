@@ -235,6 +235,30 @@ namespace Surplus
             return string.Join(Seperator, TempList.ToArray()) + ((TrailingChar && TempList.Count > 0)? Seperator : "");
         }
 
+        // HANDLE STRING VALUES
+        static string ParseForStrings(string Input){
+            bool Quoting = false;
+            string Output = "";
+            int i = 0;
+            while(i < Input.Length){
+                if(Input.Length >= i + 6 && Input.Substring(i, 6) == "quote."){
+                    Quoting = true;
+                    Output += "\"";
+                    i += 5;
+                } else if(Input.Length >= i + 6 && Input.Substring(i, 6) == ".quote"){
+                    Quoting = false;
+                    Output += "\"";
+                    i += 5;
+                } else if(Quoting && Input[i] == '.'){
+                    Output += " ";
+                } else {
+                    Output += Input[i];
+                }
+                i++;
+            }
+            return Output;
+        }
+
         // ERROR LOGGER
         static void PrintError(int Index, int LineIndex){
             switch(Index){
