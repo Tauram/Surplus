@@ -59,6 +59,10 @@ namespace Surplus
                     // VARIABLE MANAGEMENT
                     case "set":
                         return TokenRangeString(Tokens, Index, ".", 1, -1, "", "to") + " = " + ParseForStrings(TokenRangeString(Tokens, Index, ".", -1, -1, "to")) + ";";
+                    case "setindex":
+                        return TokenRangeString(Tokens, Index, ".", -1, -1, "in", "to") + "[" + TokenRangeString(Tokens, Index, ".", 1, -1, "", "in") + "] = " + ParseForStrings(TokenRangeString(Tokens, Index, ".", -1, -1, "to")) + ";";
+                    case "getindex":
+                        return TokenRangeString(Tokens, Index, ".", -1, -1, "to") + " = " + ParseForStrings(TokenRangeString(Tokens, Index, ".", -1, -1, "in", "to")) + "[" + TokenRangeString(Tokens, Index, ".", 1, -1, "", "in") + "];";
                     case "setclone":
                         return "System.Array.Copy(" + TokenRangeString(Tokens, Index, ".", 1, -1, "", "to") + ", " + TokenRangeString(Tokens, Index, ".", -1, -1, "to") + ", " + TokenRangeString(Tokens, Index, ".", 1, -1, "", "to") + ".Length);";
                     case "append":
