@@ -197,39 +197,25 @@ namespace Surplus
                     return "ERROR";
                 }
                 switch(Tokens[i]){
-                    // 8-BIT
-                    case "int":
-                        Out += "byte " + Tokens[i + 1];
-                        break;
                     case "array":
-                        Out += "byte[] " + Tokens[i + 1];
+                        if(i + 2 >= Tokens.Count){
+                            PrintError(1, LineIndex);
+                            return "ERROR";
+                        }
+                        Out += Tokens[i + 1] + "[] " + Tokens[i + 2];
+                        i++;
                         break;
                     case "list":
-                        Out += "List<byte> " + Tokens[i + 1] + (IsArg? "" : " = new List<byte>();");
-                        break;
-                    // 16-BIT
-                    case "int16":
-                        Out += "ushort " + Tokens[i + 1];
-                        break;
-                    case "array16":
-                        Out += "ushort[] " + Tokens[i + 1];
-                        break;
-                    case "list16":
-                        Out += "List<ushort> " + Tokens[i + 1] + (IsArg? "" : " = new List<ushort>();");
-                        break;
-                    // 32-BIT
-                    case "int32":
-                        Out += "uint " + Tokens[i + 1];
-                        break;
-                    case "array32":
-                        Out += "uint[] " + Tokens[i + 1];
-                        break;
-                    case "list32":
-                        Out += "List<uint> " + Tokens[i + 1] + (IsArg? "" : " = new List<uint>();");
+                        if(i + 2 >= Tokens.Count){
+                            PrintError(1, LineIndex);
+                            return "ERROR";
+                        }
+                        Out += "List<" + Tokens[i + 1] + "> " + Tokens[i + 2];
+                        i++;
                         break;
                     default:
-                        PrintError(1, LineIndex);
-                        return "ERROR";
+                        Out += Tokens[i] + " " + Tokens[i + 1];
+                        break;
                 }
                 if(i < Tokens.Count - 2 && Tokens.Count > 3){
                     Out += ", ";
