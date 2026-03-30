@@ -6,8 +6,6 @@ namespace Surplus
     using System.Collections.Generic;
 
     static class Compiler {
-
-        static string[] AllowedPrefixes = new string[]{"public", "static"};
         static bool StopFlag;
 
         static void Main(string[] Args)
@@ -44,13 +42,6 @@ namespace Surplus
             Line = Line.TrimStart();
             Console.WriteLine("INFO: Interpreting line " + Index);
             List<string> Tokens = Line.Split(' ').ToList();
-            string Prefix = "";
-            if(AllowedPrefixes.Contains(Tokens[0])){
-                while(AllowedPrefixes.Contains(Tokens[0])){
-                    Prefix += Tokens[0] + " ";
-                    Tokens.RemoveAt(0);
-                }
-            }
             try {
                 switch(Tokens[0]){
                     // DECLARATIONS
@@ -59,11 +50,11 @@ namespace Surplus
                     case "import":
                         return "using " + String.Join(".", TokenRange(Tokens, Index, 1, Tokens.Count - 1).ToArray()) + ";";
                     case "class":
-                        return Prefix + "class " + Tokens[1] + " {";
+                        return TokenRangeString(Tokens, Index, " ", -1, -1, "as", "", true) + "class " + Tokens[1] + " {";
                     case "function":
-                        return Prefix + "void " + Tokens[1] + "(" + InterpretDatatypes(TokenRange(Tokens, Index, 2, Tokens.Count - 2), true, Index) + "){";
+                        return TokenRangeString(Tokens, Index, " ", -1, -1, "as", "", true) + "void " + Tokens[1] + "(" + InterpretDatatypes(TokenRange(Tokens, Index, 2, -1, "", "as"), true, Index) + "){";
                     case "declare":
-                        return Prefix + InterpretDatatypes(TokenRange(Tokens, Index, 1, Tokens.Count - 1), false, Index) + ";";
+                        return TokenRangeString(Tokens, Index, " ", -1, -1, "as", "", true) + InterpretDatatypes(TokenRange(Tokens, Index, 1, -1, "", "as"), false, Index) + ";";;
 
                     // VARIABLE MANAGEMENT
                     case "set":
