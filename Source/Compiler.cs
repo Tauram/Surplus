@@ -73,7 +73,9 @@ namespace Surplus
                         return TokenRangeString(Tokens, Index, ".", -1, -1, "to") + ".AddRange(" + TokenRangeString(Tokens, Index, ".", 1, -1, "", "to") + ");";
                     case "setlength":
                         return TokenRangeString(Tokens, Index, ".", 1, -1, "", "to") + " = new " + TokenRangeString(Tokens, Index, ".", -1, -1, "with") + "[" + TokenRangeString(Tokens, Index, ".", -1, -1, "to", "with") + "];";
-                    
+                    case "initlist":
+                        return TokenRangeString(Tokens, Index, ".", 1, -1, "", "with") + " = new List <" + TokenRangeString(Tokens, Index, ".", -1, -1, "with") + ">();";
+
                     // GENERAL INSTRUCTIONS
                     case "start":
                         return "{";
