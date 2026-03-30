@@ -153,11 +153,11 @@ namespace Surplus
             if(Tokens.Count > 1){
                 switch(Tokens[1]){
                     case "equals":
-                        return TokenRangeString(Tokens, Index, ".", 0, -1, "", "equals") + " == " + TokenRangeString(Tokens, Index, ".", -1, -1, "equals");
+                        return TokenRangeString(Tokens, LineIndex, ".", 0, -1, "", "equals") + " == " + TokenRangeString(Tokens, LineIndex, ".", -1, -1, "equals");
                     case "greater":
-                        return TokenRangeString(Tokens, Index, ".", 0, -1, "", "greater") + " > " + TokenRangeString(Tokens, Index, ".", -1, -1, "greater");
+                        return TokenRangeString(Tokens, LineIndex, ".", 0, -1, "", "greater") + " > " + TokenRangeString(Tokens, LineIndex, ".", -1, -1, "greater");
                     case "less":
-                        return TokenRangeString(Tokens, Index, ".", 0, -1, "", "less") + " < " + TokenRangeString(Tokens, Index, ".", -1, -1, "less");
+                        return TokenRangeString(Tokens, LineIndex, ".", 0, -1, "", "less") + " < " + TokenRangeString(Tokens, LineIndex, ".", -1, -1, "less");
                     default:
                         PrintError(1, LineIndex);
                         return "ERROR";
