@@ -58,11 +58,11 @@ namespace Surplus
 
                     // VARIABLE MANAGEMENT
                     case "set":
-                        return TokenRangeString(Tokens, Index, ".", 1, -1, "", "to") + " = " + TokenRangeString(Tokens, Index, ".", -1, -1, "to") + ";";
+                        return TokenRangeString(Tokens, Index, ".", 1, -1, "", "to") + " = " + ParseForStrings(TokenRangeString(Tokens, Index, ".", -1, -1, "to")) + ";";
                     case "setclone":
                         return "System.Array.Copy(" + TokenRangeString(Tokens, Index, ".", 1, -1, "", "to") + ", " + TokenRangeString(Tokens, Index, ".", -1, -1, "to") + ", " + TokenRangeString(Tokens, Index, ".", 1, -1, "", "to") + ".Length);";
                     case "append":
-                        return TokenRangeString(Tokens, Index, ".", -1, -1, "to") + ".Add(" + TokenRangeString(Tokens, Index, ".", 1, -1, "", "to") + ");";
+                        return TokenRangeString(Tokens, Index, ".", -1, -1, "to") + ".Add(" + ParseForStrings(TokenRangeString(Tokens, Index, ".", 1, -1, "", "to")) + ");";
                     case "remove":
                         return TokenRangeString(Tokens, Index, ".", -1, -1, "from") + ".RemoveAt(" + TokenRangeString(Tokens, Index, ".", 1, -1, "", "from") + ");";
                     case "appendall":
@@ -86,15 +86,15 @@ namespace Surplus
                     case "switch":
                         return "switch(" + TokenRangeString(Tokens, Index, ".", 1) + "){";
                     case "case":
-                        return "case " + TokenRangeString(Tokens, Index, ".", 1) + ":";
+                        return "case " + ParseForStrings(TokenRangeString(Tokens, Index, ".", 1)) + ":";
                     case "call":
-                        return TokenRangeString(Tokens, Index, ".", 1, -1, "", "with") + "(" + TokenRangeString(Tokens, Index, ".", -1, -1, "with").Replace(".and.", ", ") + ");";
+                        return TokenRangeString(Tokens, Index, ".", 1, -1, "", "with") + "(" + ParseForStrings(TokenRangeString(Tokens, Index, ".", -1, -1, "with").Replace(".and.", ", ")) + ");";
 
                     // SYSTEM NAMESPACE INTEGRATION
                     case "printtext":
                         return "System.Console.WriteLine(System.Text.Encoding.ASCII.GetString(" + TokenRangeString(Tokens, Index, ".", 1) + "));";
                     case "print":
-                        return "System.Console.WriteLine(" + TokenRangeString(Tokens, Index, ".", 1) + ");";
+                        return "System.Console.WriteLine(" + ParseForStrings(TokenRangeString(Tokens, Index, ".", 1)) + ");";
                     
                     // ARITHMETIC INSTRUCTIONS
                     case "increase":
@@ -144,7 +144,7 @@ namespace Surplus
             if(Tokens.Count > 1){
                 switch(Tokens[1]){
                     case "equals":
-                        return TokenRangeString(Tokens, LineIndex, ".", 0, -1, "", "equals") + " == " + TokenRangeString(Tokens, LineIndex, ".", -1, -1, "equals");
+                        return TokenRangeString(Tokens, LineIndex, ".", 0, -1, "", "equals") + " == " + ParseForStrings(TokenRangeString(Tokens, LineIndex, ".", -1, -1, "equals"));
                     case "greater":
                         return TokenRangeString(Tokens, LineIndex, ".", 0, -1, "", "greater") + " > " + TokenRangeString(Tokens, LineIndex, ".", -1, -1, "greater");
                     case "less":
