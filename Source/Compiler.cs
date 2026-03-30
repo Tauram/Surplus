@@ -97,7 +97,7 @@ namespace Surplus
                     case "case":
                         return "case " + TokenRangeString(Tokens, Index, ".", 1) + ":";
                     case "call":
-                        return TokenRangeString(Tokens, Index, ".", 1, -1, "", "with") + "(" + InterpretDatatypes(TokenRange(Tokens, Index, -1, -1, "with"), true, Index) + ");";
+                        return TokenRangeString(Tokens, Index, ".", 1, -1, "", "with") + "(" + TokenRangeString(Tokens, Index, -1, -1, "with") + ");";
 
                     // SYSTEM NAMESPACE INTEGRATION
                     case "printtext":
@@ -241,6 +241,19 @@ namespace Surplus
         // GET TOKENRANGE AS STRING
         static string TokenRangeString(List<string> Tokens, int LineIndex, string Seperator, int Start = 0, int Count = -1, string StartKeyword = "", string EndKeyword = ""){
             return string.Join(Seperator, TokenRange(Tokens, LineIndex, Start, Count, StartKeyword, EndKeyword).ToArray());
+        }
+
+        // REPLACE ALL INSTANCES OF A STRING IN LIST
+        static List<string> ReplaceTokens(List<string> Tokens, string InWord, string OutWord){
+            List<string> TempList = new List<string>();
+            for (int i = 0; i < Tokens.Count; i++){
+                if(Tokens[i] == InWord){
+                    TempList.Add(Outword);
+                } else {
+                    TempList.Add(Tokens[i]);
+                }
+            }
+            return TempList;
         }
 
         // ERROR LOGGER
