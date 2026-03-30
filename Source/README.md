@@ -6,11 +6,21 @@
 
 Declares a namespace
 
+Requires an ```end``` statement to close the body.
+
 Example of syntax:
 ```
 namespace example
 ```
-Requires an ```end``` statement to close the body.
+
+### import
+
+Declares an assembly reference
+
+Example of syntax:
+```
+import System Collections Generic
+```
 
 ### class
 
@@ -18,23 +28,36 @@ Declares a class
 
 Supports modifiers
 
+Requires an ```end``` statement to close the body.
+
 Example of syntax:
 ```
 class example
 ```
-Requires an ```end``` statement to close the body.
 
 ### function
 
-Declares a function
+Declares a function with/without arguments
 
 Supports modifiers
 
-Example of syntax:
-```
-class example
-```
 Requires an ```end``` statement to close the body.
+
+Example of syntax 1:
+```
+function sample
+```
+Example of syntax 2:
+```
+function sample array string foo int bar
+```
+(declares function ```sample``` that takes a string array named ```foo``` and an int named ```bar``` as arguments)
+
+Example of syntax 3:
+```
+function sample list bool foo as public static
+```
+(declares a public and static function ```sample``` that takes a boolean list named ```foo``` as an argument)
 
 ### declare
 
@@ -44,12 +67,13 @@ Supports modifiers
 
 Example of syntax 1:
 ```
-declare byte example
+declare int example
 ```
 Example of syntax 2:
 ```
-public static declare bytelist example
+declare list string example as static
 ```
+(declares a static string list ```example```)
 
 ## Variable Management
 
@@ -57,74 +81,140 @@ public static declare bytelist example
 
 Sets the value of a variable
 
+Uses ```to``` keyword for seperation
+
 Example of syntax 1:
 ```
-set example 12
+set example to 12
 ```
+(Sets the value of ```example``` to 12)
+
 Example of syntax 2:
 ```
-set example foo
+set sample to foo
 ```
-(Sets the value of ```example``` to the value of ```foo```)
+(Sets the value of ```sample``` to the value of ```foo```)
 
-### setall
+### setindex
 
-Sets every element in an array
+Sets the value of an element at a specified index of a collection
+
+Uses ```in``` and ```to``` keywords for seperation
+
+Example of syntax 1:
+```
+setindex 0 in example to 4
+```
+(Sets the value of ```example``` at index 0 to 4)
+
+Example of syntax 2:
+```
+setindex foo in example to quote Test string quote
+```
+(Sets the value of ```example``` at index ```foo``` to "test string")
+
+### getindex
+
+Gets the value of an element at a specified index of a collection
+
+Uses ```in``` and ```to``` keywords for seperation
 
 Example of syntax:
 ```
-setall example 12 5 26
+getindex 0 in example to foo
 ```
+(Gets the value of ```example``` at index 0 and outputs into ```foo```)
+
+### copyarray
+
+Copies an array to another array
+
+Uses ```to``` keyword for seperation
+
+Example of syntax:
+```
+copyarray example to foo
+```
+(Copies ```example``` to ```foo```)
 
 ### append
 
 Appends an element to the end of a list
 
+Uses ```to``` keyword for seperation
+
+Example of syntax 1:
+```
+append 12 to example
+```
+Example of syntax 2:
+```
+append quote test string quote to foo
+```
+(Appends "test string" to ```foo```)
+
+### remove
+
+Removes an element at a specified index of a collection
+
+Uses ```from``` keyword for seperation
+
 Example of syntax:
 ```
-append example 12
+remove 0 from example
 ```
+(Removes element at index 0 from  ```example```)
 
 ### appendall
 
 Appends all the elements of an array or list to the end of a list
 
+Uses ```to``` keyword for seperation
+
 Example of syntax:
 ```
-appendall example foo
+appendall foo to example
 ```
 (Appends the values of ```foo``` to  ```example```)
 
-### remove
+### setlength
 
-Removes an element from a specified index in a list
+Sets the length of an array using a specified datatype
 
-Example of syntax:
-```
-remove example 0
-```
-
-### tobytes
-
-Converts a byte list into a byte array
+Uses ```to``` and ```with``` keywords for seperation
 
 Example of syntax:
 ```
-tobytes example foo
+setlength example to 10 with string
 ```
-(Converts ```example``` into a byte array and outputs in  ```foo```, ```foo``` must be declared beforehand)
+(Sets ```example``` to an array with 10 empty strings)
 
-### tobytelist
+### initlist
 
-Converts a byte array into a byte list
+Initializes a list using a specified datatype
+
+Uses ```with``` keyword for seperation
 
 Example of syntax:
 ```
-tobytelist example foo
+initlist example with bool
 ```
-(Converts ```example``` into a byte list and outputs in  ```foo```, ```foo``` must be declared beforehand)
+(Initializes ```example``` as a boolean list)
 
 ## General Instructions
+
+### start
+
+Opens a body (used for defining scope)
+
+Not required for other declarations
+
+Example of syntax:
+```
+start
+    set out to 1
+end
+```
 
 ### end
 
@@ -140,86 +230,95 @@ end
 
 ### if
 
-Executes if the specified condition is true
-
-Example of syntax:
-```
-if example equals 12
-```
-Requires an ```end``` statement to close the body.
+Executes the body if the specified condition is true
 
 Requires a comparison operator for the condition
 
+Requires an ```end``` statement to close the body.
+
+Example of syntax:
+```
+if example equals quote yes quote
+```
+(executes if the value of ```example``` is "yes")
+
 ### ifnot
 
-Executes if the specified condition is false
+Executes the body if the specified condition is false
+
+Requires a comparison operator for the condition
+
+Requires an ```end``` statement to close the body.
 
 Example of syntax:
 ```
 ifnot example greater 12
 ```
-Requires an ```end``` statement to close the body.
 
-Requires a comparison operator for the condition
-
-### if, else
+### else
 
 Executes if the if statement did not execute
+
+Requires an ```end``` statement to close the body.
 
 Example of syntax:
 ```
 if example equal 12
-    print 1
+    set out to 1
 else
-    print 0
+    set out to 0
 end
 ```
-Requires an ```end``` statement to close the body.
 
 ### while
 
 Executes once, and loops until specified condition is false
 
+Requires a comparison operator for the condition
+
+Requires an ```end``` statement to close the body.
+
 Example of syntax:
 ```
 while example less 12
 ```
-Requires an ```end``` statement to close the body.
-
-Requires a comparison operator for the condition
 
 ### whilenot
 
 Executes once, and loops until specified condition is true
 
+Requires a comparison operator for the condition
+
+Requires an ```end``` statement to close the body.
+
 Example of syntax:
 ```
 whilenot example equals 12
 ```
-Requires an ```end``` statement to close the body.
-
-Requires a comparison operator for the condition
 
 ### switch, case
 
 Executes specific code for specific values of a variable
 
+Requires an ```end``` statement to close the body.
+
 Example of syntax:
 ```
 switch example
     case 0
-        print 10
+        set out to quote zero quote
     case 1
-        print 4
+        set out to quote one quote
     case 2
-        print 17
+        set out to quote two quote
 end
 ```
-Requires an ```end``` statement to close the body.
 
 ### call
 
-Calls a function with specified arguments
+Calls a function with/without specified arguments
+
+Uses ```with``` and ```and``` keywords for seperation
 
 Example of syntax 1:
 ```
@@ -227,111 +326,176 @@ call example
 ```
 Example of syntax 2:
 ```
-call example 2 foo
+call example with quote test string quote and foo
 ```
-
-## Command-line Instructions
-
-### printtext
-
-Writes a byte array into the console as ASCII code text
-
-Example of syntax:
-```
-setall example 72 101 108 108 111 32 119 111 114 108 100 33
-printtext example
-```
-(Outputs "Hello world!")
-
-### print
-
-Writes a value into the console
-Example of syntax:
-```
-set example 72
-print example
-```
-(Outputs "72")
+(Calls ```example``` with arguments "test string" and ```foo```)
 
 ## Arithmetic instructions
 
-### add
+### increase
 
-Adds a value into a variable
+Increases the value of a variable by a specified value
 
-Example of syntax:
-```
-add example 12
-```
-
-### substract
-
-Substracts a value from a variable
+Uses ```by``` keyword for seperation
 
 Example of syntax:
 ```
-substract example 12
+increase example by 12
+```
+
+### decrease
+
+Decreases the value of a variable by a specified value
+
+Uses ```by``` keyword for seperation
+
+Example of syntax:
+```
+decrease example by 12
 ```
 
 ### multiply
 
-Multiplies a variable with a value
+Multiplies the value of a variable by a specified value
+
+Uses ```by``` keyword for seperation
 
 Example of syntax:
 ```
-multiply example 2
+multiply example by 2
 ```
 
 ### divide
 
-Divides a variable by a value
+Divides the value of a variable by a specified value
+
+Uses ```by``` keyword for seperation
 
 Example of syntax:
 ```
-divide example 2
+divide example by 2
 ```
 
 ### modulo
 
-Sets a variable to its remainder with a specified modulo
+Sets the value of a variable to its remainder with a specified modulo
+
+Uses ```by``` keyword for seperation
 
 Example of syntax:
 ```
-modulo example 2
+modulo example by 2
 ```
 
-## Datatypes
+## Bitwise instructions
 
-### byte
+### invert
 
-8-bit unsigned integer, which ranges from 0 to 255 (inclusive)
+Inverts the bits of a value and outputs to a variable
 
-### bytes
+Uses ```to``` keyword for seperation
 
-Array of bytes
+Example of syntax:
+```
+invert example to foo
+```
 
-### bytelist
+### lshift
 
-List of bytes
+Shifts the bits of a value to the left and outputs to a variable
+
+Uses ```to``` keyword for seperation
+
+Example of syntax:
+```
+lshift example to foo
+```
+
+### rshift
+
+Shifts the bits of a value to the right while preserving the sign and outputs to a variable
+
+Uses ```to``` keyword for seperation
+
+Example of syntax:
+```
+rshift example to foo
+```
+
+### urshift
+
+Shifts the bits of a value to the right filling with zeros from the left (unsigned shift) and outputs to a variable
+
+Uses ```to``` keyword for seperation
+
+Example of syntax:
+```
+urshift example to foo
+```
+
+### and
+
+Applies a bitwise AND-operator with a specified value to a variable
+
+Uses ```to``` keyword for seperation
+
+Example of syntax:
+```
+and example to foo
+```
+(Applies ```example``` with the AND-operator onto ```foo```)
+
+### or
+
+Applies a bitwise OR-operator with a specified value to a variable
+
+Uses ```to``` keyword for seperation
+
+Example of syntax:
+```
+or example to foo
+```
+(Applies ```example``` with the OR-operator onto ```foo```)
+
+### xor
+
+Applies a bitwise XOR-operator with a specified value to a variable
+
+Uses ```to``` keyword for seperation
+
+Example of syntax:
+```
+xor example to foo
+```
+(Applies ```example``` with the XOR-operator onto ```foo```)
+
+## Collection datatypes
+
+### array
+
+Array of a specified datatype
+
+Example of syntax:
+```
+declare array string example
+```
+
+### list
+
+List of a specified datatype
+
+Example of syntax:
+```
+declare list int example
+```
 
 ## Modifiers
 
-### public
-
-Defines the scope of a declared object as public
+Used at the end of declarations after ```as``` keyword
 
 Example of syntax:
 ```
-public static class example
-```
-
-### static
-
-Defines a declared object as static i.e. non-instantiable
-
-Example of syntax:
-```
-public static function example
+class example as public static
 ```
 
 ## Comparison Operators
@@ -362,3 +526,15 @@ Example of syntax:
 ```
 example less 12
 ```
+
+## Other keywords
+
+### quote
+
+Used to specify a literal string value
+
+Example of syntax:
+```
+set example to quote Hello World! quote
+```
+(sets the value of ```example``` to the string "Hello World!" (without quotes))
