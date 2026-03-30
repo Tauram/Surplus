@@ -243,19 +243,6 @@ namespace Surplus
             return string.Join(Seperator, TokenRange(Tokens, LineIndex, Start, Count, StartKeyword, EndKeyword).ToArray());
         }
 
-        // REPLACE ALL INSTANCES OF A STRING IN LIST
-        static List<string> ReplaceTokens(List<string> Tokens, string InWord, string OutWord){
-            List<string> TempList = new List<string>();
-            for (int i = 0; i < Tokens.Count; i++){
-                if(Tokens[i] == InWord){
-                    TempList.Add(OutWord);
-                } else {
-                    TempList.Add(Tokens[i]);
-                }
-            }
-            return TempList;
-        }
-
         // ERROR LOGGER
         static void PrintError(int Index, int LineIndex){
             switch(Index){
