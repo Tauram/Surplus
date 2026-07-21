@@ -10,9 +10,10 @@ namespace Surplus
         static byte[] Memory = new byte[1000]; // Work memory
         static byte X; // X register
         static byte Y; // Y register
+        static Stack<byte> StackMemory = new Stack<byte>(); // Stack
         static ushort Pointer; // The line index of execution
         static ushort Return; // Subroutine return address
-        static bool ExitFlag;
+        static bool ExitFlag; // Set true to exit
 
         static void Main(string[] Args)
         {
@@ -125,7 +126,20 @@ namespace Surplus
                     Pointer = BitConverter.ToUInt16(Args, 0);
                     break;
                 case "RTS":
-                    Pointer = Return + 1;
+                    Pointer = Return;
+                    Pointer++;
+                    break;
+                case "PSX":
+                    StackMemory.Push(X);
+                    break;
+                case "PSY":
+                    StackMemory.Push(Y);
+                    break;
+                case "PLX":
+                    X = StackMemory.Pop();
+                    break;
+                case "PLY":
+                    Y = StackMemory.Pop();
                     break;
                 default:
                     ExitFlag = true;
