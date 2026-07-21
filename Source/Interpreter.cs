@@ -131,15 +131,43 @@ namespace Surplus
                     break;
                 case "PSX":
                     StackMemory.Push(X);
+                    Pointer++;
                     break;
                 case "PSY":
                     StackMemory.Push(Y);
+                    Pointer++;
                     break;
                 case "PLX":
                     X = StackMemory.Pop();
+                    Pointer++;
                     break;
                 case "PLY":
                     Y = StackMemory.Pop();
+                    Pointer++;
+                    break;
+                case "NOT":
+                    X = (byte)~X;
+                    Pointer++;
+                    break;
+                case "AND":
+                    X = (byte)(X & Y);
+                    Pointer++;
+                    break;
+                case "ORA":
+                    X = (byte)(X | Y);
+                    Pointer++;
+                    break;
+                case "XOR":
+                    X = (byte)(X ^ Y);
+                    Pointer++;
+                    break;
+                case "ASL":
+                    X = (byte)(X << 1);
+                    Pointer++;
+                    break;
+                case "LSR":
+                    X = (byte)(X >> 1);
+                    Pointer++;
                     break;
                 default:
                     ExitFlag = true;
