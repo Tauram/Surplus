@@ -106,16 +106,22 @@ namespace Surplus
                 case "BEQ":
                     if(X == 0){
                         Pointer = BitConverter.ToUInt16(Args, 0);
+                    } else {
+                        Pointer++;
                     }
                     break;
                 case "BNE":
                     if(X != 0){
                         Pointer = BitConverter.ToUInt16(Args, 0);
+                    } else {
+                        Pointer++;
                     }
                     break;
                 case "BCY":
                     if(X > Y){
                         Pointer = BitConverter.ToUInt16(Args, 0);
+                    } else {
+                        Pointer++;
                     }
                     break;
                 case "JMP":
