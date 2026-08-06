@@ -169,6 +169,10 @@ namespace Surplus
                     X = (byte)(X >> 1);
                     Pointer++;
                     break;
+                case "CWX":
+                    Console.WriteLine(X.ToString());
+                    Pointer++;
+                    break;
                 default:
                     ExitFlag = true;
                     break;
