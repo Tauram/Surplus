@@ -176,7 +176,19 @@ namespace Surplus
                     Pointer++;
                     break;
                 case "CWX":
-                    Console.WriteLine(X.ToString());
+                    Console.Write(X.ToString());
+                    Pointer++;
+                    break;
+                case "CAX":
+                    Console.Write(System.Text.Encoding.ASCII.GetString(new byte[1]{X}));
+                    Pointer++;
+                    break;
+                case "CWN":
+                    Console.Write('\n');
+                    Pointer++;
+                    break;
+                case "CCL":
+                    Console.Clear();
                     Pointer++;
                     break;
                 default:
