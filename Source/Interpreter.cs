@@ -11,8 +11,8 @@ namespace Surplus
         static byte X; // X register
         static byte Y; // Y register
         static Stack<byte> StackMemory = new Stack<byte>(); // Stack
-        static ushort Pointer; // The line index of execution
-        static ushort Return; // Subroutine return address
+        static int Pointer; // The line index of execution
+        static int Return; // Subroutine return line index
         static bool ExitFlag; // Set true to exit
 
         static void Main(string[] Args)
@@ -33,9 +33,9 @@ namespace Surplus
         static void Interpret(string[] Tokens)
         {
             // Get numerics from string
-            byte[] Args = new byte[Tokens.Length - 1];
+            int[] Args = new int[Tokens.Length - 1];
             for(int i = 0; i < Args.Length; i++){
-                Args[i] = byte.Parse(Tokens[i+1]);
+                Args[i] = int.Parse(Tokens[i+1]);
             }
 
             // Interpret
@@ -64,11 +64,11 @@ namespace Surplus
                     Pointer++;
                     break;
                 case "EQX":
-                    X = Args[0];
+                    X = (byte)Args[0];
                     Pointer++;
                     break;
                 case "EQY":
-                    Y = Args[0];
+                    Y = (byte)Args[0];
                     Pointer++;
                     break;
                 case "INX":
@@ -105,31 +105,31 @@ namespace Surplus
                     break;
                 case "BEQ":
                     if(X == 0){
-                        Pointer = BitConverter.ToUInt16(Args, 0);
+                        Pointer = Args[0];
                     } else {
                         Pointer++;
                     }
                     break;
                 case "BNE":
                     if(X != 0){
-                        Pointer = BitConverter.ToUInt16(Args, 0);
+                        Pointer = Args[0];
                     } else {
                         Pointer++;
                     }
                     break;
                 case "BCY":
                     if(X > Y){
-                        Pointer = BitConverter.ToUInt16(Args, 0);
+                        Pointer = Args[0];
                     } else {
                         Pointer++;
                     }
                     break;
                 case "JMP":
-                    Pointer = BitConverter.ToUInt16(Args, 0);
+                    Pointer = Args[0];
                     break;
                 case "JSR":
                     Return = Pointer;
-                    Pointer = BitConverter.ToUInt16(Args, 0);
+                    Pointer = Args[0];
                     break;
                 case "RTS":
                     Pointer = Return;
@@ -176,7 +176,19 @@ namespace Surplus
                     Pointer++;
                     break;
                 case "CWX":
-                    Console.WriteLine(X.ToString());
+                    Console.Write(X.ToString());
+                    Pointer++;
+                    break;
+                case "CAX":
+                    Console.Write(System.Text.Encoding.ASCII.GetString(new byte[1]{X}));
+                    Pointer++;
+                    break;
+                case "CWN":
+                    Console.Write('\n');
+                    Pointer++;
+                    break;
+                case "CCL":
+                    Console.Clear();
                     Pointer++;
                     break;
                 default:
