@@ -129,7 +129,7 @@ Performs a bitwise XOR using the X and Y registers. The resulting value is set t
 ## ASL
 Performs an arithmetic left shift to the X register.
 
-## ASL
+## LSR
 Performs a logical right shift to the X register.
 
 ## CWX
