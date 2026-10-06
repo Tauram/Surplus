@@ -126,8 +126,16 @@ namespace Surplus
                         X = Y;
                         Pointer++;
                         break;
+                    case "TYA":
+                        A = Y;
+                        Pointer++;
+                        break;
                     case "TAX":
                         X = A;
+                        Pointer++;
+                        break;
+                    case "TAY":
+                        Y = A;
                         Pointer++;
                         break;
                     case "BEQ":
