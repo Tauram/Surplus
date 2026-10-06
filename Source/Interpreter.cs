@@ -62,6 +62,10 @@ namespace Surplus
                         Memory[Args[0]] = Y;
                         Pointer++;
                         break;
+                    case "STA":
+                        Memory[Args[0]] = A;
+                        Pointer++;
+                        break;
                     case "LDX":
                         X = Memory[Args[0]];
                         Pointer++;
@@ -70,12 +74,20 @@ namespace Surplus
                         Y = Memory[Args[0]];
                         Pointer++;
                         break;
+                    case "LDA":
+                        A = Memory[Args[0]];
+                        Pointer++;
+                        break;
                     case "EQX":
                         X = Args[0];
                         Pointer++;
                         break;
                     case "EQY":
                         Y = Args[0];
+                        Pointer++;
+                        break;
+                    case "EQA":
+                        A = Args[0];
                         Pointer++;
                         break;
                     case "INX":
@@ -150,12 +162,20 @@ namespace Surplus
                         StackMemory.Push(Y);
                         Pointer++;
                         break;
+                    case "PSA":
+                        StackMemory.Push(A);
+                        Pointer++;
+                        break;
                     case "PLX":
                         X = StackMemory.Pop();
                         Pointer++;
                         break;
                     case "PLY":
                         Y = StackMemory.Pop();
+                        Pointer++;
+                        break;
+                    case "PLA":
+                        A = StackMemory.Pop();
                         Pointer++;
                         break;
                     case "NOT":
