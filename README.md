@@ -21,7 +21,7 @@ A full documentation of every available instruction can be found [here](Source/R
 
 ### Fibonacci
 
-Calculates and prints numbers in the Fibonacci sequence using the registers, stack, and one other memory address, limited to 20 numbers starting from the first 1 in this case.
+Calculates and prints numbers in the Fibonacci sequence using just the registers and one unit of the stack, limited to 20 numbers starting from the first 1 in this case.
 ```
 ALC 0
 EQX 1
