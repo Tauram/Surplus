@@ -4,13 +4,13 @@ Surplus is an experimental live-interpreted programming language that is designe
 
 ## Memory structure
 
-The Surplus interpreter runs the program in a closed environment and only has access to the following sections of virtual memory:
-1. Work memory - An array of bytes used as work memory. The default size is 1000 bytes, but it can be cleared or resized using the ```ALC``` instruction.
-2. Stack - A stack of bytes seperate from the work memory. The size of the stack is dynamically allocated with elements pushed onto it.
-3. X register - The primary byte used for computation
-4. Y register - The secondary byte used for computation
-5. Pointer - The address (line index) of execution as a signed 32-bit integer. The first line of a program is at index 0.
-6. Return address - The line index to return to from a subroutine as a signed 32-bit integer, automatically set and cannot be modified.
+Surplus is designed to run on 32-bit systems, so all of its virtual memory types use signed 32-bit integers as their unit of transfer. In this documentation, we will refer to a signed 32-bit integer with the word unit. The Surplus interpreter runs the program in a closed environment and only has access to the following sections of virtual memory:
+1. Work memory - An array of units used as work memory. The default size is 250 units (=1 KB), but it can be cleared or resized using the ```ALC``` instruction.
+2. Stack - A stack of units seperate from the work memory. The size of the stack is dynamically allocated with elements pushed onto it.
+3. X register - The primary unit used for computation
+4. Y register - The secondary unit used for computation
+5. A register - A unit used as an address for branching and jumping. Addresses are equivalent to the code's line indices, with the first line at address 0.
+6. Pointer - The program counter (address of execution) as a unit
 7. Exit flag - A boolean that tells the interpreter to stop execution when true. Set with the ```EXT``` instruction.
 
 ## Instructions
@@ -21,27 +21,23 @@ A full documentation of every available instruction can be found [here](Source/R
 
 ### Fibonacci
 
-Calculates and prints numbers in the Fibonacci sequence using the registers, stack, and one other memory address, limited to 12 numbers starting from the second 1 in this case.
+Calculates and prints numbers in the Fibonacci sequence using the registers, stack, and one other memory address, limited to 20 numbers starting from the first 1 in this case.
 ```
-ALC 1
+ALC 0
 EQX 1
-EQY 0
-STY 0
 PSX
-SUM
+PLY
+TYA
 CWX
 CWN
-PLY
-PSX
+SUM
+TXY
+TAX
 PSY
-LDX 0
-INX
-STX 0
-EQY 12
-SUB
-BNE 18
+EQY 6765
+EQA 16
+BCY
+EQA 3
+JMP
 EXT
-PLY
-PLX
-JMP 4
 ```
