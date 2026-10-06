@@ -66,41 +66,26 @@ Substracts the value of the Y register from the X register.
 ## TXY
 Transfers the value of the X register into the Y register.
 
+## TXA
+Transfers the value of the X register into the A register.
+
 ## TYX
 Transfers the value of the Y register into the X register.
 
-## BEQ
-Jumps execution to a specified address if the X register is equal to 0.
+## TAX
+Transfers the value of the A register into the X register.
 
-Arguments:
-1. int - address to jump to as a zero-based line index
+## BEQ
+Jumps execution to the A register address if the X register is equal to 0.
 
 ## BNE
-Jumps execution to a specified address if the X register is not equal to 0.
-
-Arguments:
-1. int - address to jump to as a zero-based line index
+Jumps execution to the A register address if the X register is not equal to 0.
 
 ## BCY
-Jumps execution to a specified address if the value of the X register is greater than the value of the Y register.
-
-Arguments:
-1. int - address to jump to as a zero-based line index
+Jumps execution to the A register address if the value of the X register is greater than the value of the Y register.
 
 ## JMP
-Jumps execution to a specified address.
-
-Arguments:
-1. int - address to jump to as a zero-based line index
-
-## JSR
-Jumps execution to a specified address as a subroutine and sets the return address to the next instruction.
-
-Arguments:
-1. int - address to jump to as a zero-based line index
-
-## RTS
-Returns execution to the return address.
+Jumps execution to the A register address.
 
 ## PSX
 Pushes the value of the X register onto the stack.
@@ -129,8 +114,8 @@ Performs a bitwise XOR using the X and Y registers. The resulting value is set t
 ## ASL
 Performs an arithmetic left shift to the X register.
 
-## LSR
-Performs a logical right shift to the X register.
+## ASR
+Performs an arithmetic right shift to the X register.
 
 ## CWX
 Writes the value of the X register to the console as a number.
