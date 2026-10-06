@@ -7,12 +7,12 @@ namespace Surplus
 
     static class Interpreter 
     {
-        static byte[] Memory = new byte[1000]; // Work memory
-        static byte X; // X register
-        static byte Y; // Y register
-        static Stack<byte> StackMemory = new Stack<byte>(); // Stack
-        static int Pointer; // The line index of execution
-        static int Return; // Subroutine return line index
+        static int[] Memory = new int[1000]; // Work memory
+        static Stack<int> StackMemory = new Stack<int>(); // Stack
+        static int X; // X register
+        static int Y; // Y register
+        static int A; // Address register
+        static int Pointer; // The program counter (line index of execution)
         static bool ExitFlag; // Set true to exit
 
         static void Main(string[] Args)
@@ -48,7 +48,7 @@ namespace Surplus
             try {
                 switch(Tokens[0]){
                     case "ALC":
-                        Memory = new byte[Args[0]];
+                        Memory = new int[Args[0]];
                         Pointer++;
                         break;
                     case "EXT":
@@ -71,11 +71,11 @@ namespace Surplus
                         Pointer++;
                         break;
                     case "EQX":
-                        X = (byte)Args[0];
+                        X = Args[0];
                         Pointer++;
                         break;
                     case "EQY":
-                        Y = (byte)Args[0];
+                        Y = Args[0];
                         Pointer++;
                         break;
                     case "INX":
@@ -106,41 +106,41 @@ namespace Surplus
                         Y = X;
                         Pointer++;
                         break;
+                    case "TXA":
+                        A = X;
+                        Pointer++;
+                        break;
                     case "TYX":
                         X = Y;
                         Pointer++;
                         break;
+                    case "TAX":
+                        X = A;
+                        Pointer++;
+                        break;
                     case "BEQ":
                         if(X == 0){
-                            Pointer = Args[0];
+                            Pointer = A;
                         } else {
                             Pointer++;
                         }
                         break;
                     case "BNE":
                         if(X != 0){
-                            Pointer = Args[0];
+                            Pointer = A;
                         } else {
                             Pointer++;
                         }
                         break;
                     case "BCY":
                         if(X > Y){
-                            Pointer = Args[0];
+                            Pointer = A;
                         } else {
                             Pointer++;
                         }
                         break;
                     case "JMP":
-                        Pointer = Args[0];
-                        break;
-                    case "JSR":
-                        Return = Pointer;
-                        Pointer = Args[0];
-                        break;
-                    case "RTS":
-                        Pointer = Return;
-                        Pointer++;
+                        Pointer = A;
                         break;
                     case "PSX":
                         StackMemory.Push(X);
@@ -159,27 +159,27 @@ namespace Surplus
                         Pointer++;
                         break;
                     case "NOT":
-                        X = (byte)~X;
+                        X = ~X;
                         Pointer++;
                         break;
                     case "AND":
-                        X = (byte)(X & Y);
+                        X = X & Y;
                         Pointer++;
                         break;
                     case "ORA":
-                        X = (byte)(X | Y);
+                        X = X | Y;
                         Pointer++;
                         break;
                     case "XOR":
-                        X = (byte)(X ^ Y);
+                        X = X ^ Y;
                         Pointer++;
                         break;
                     case "ASL":
-                        X = (byte)(X << 1);
+                        X = X << 1;
                         Pointer++;
                         break;
                     case "LSR":
-                        X = (byte)(X >> 1);
+                        X = X >> 1;
                         Pointer++;
                         break;
                     case "CWX":
@@ -187,7 +187,7 @@ namespace Surplus
                         Pointer++;
                         break;
                     case "CAX":
-                        Console.Write(System.Text.Encoding.ASCII.GetString(new byte[1]{X}));
+                        Console.Write(System.Text.Encoding.ASCII.GetString(new byte[1]{(byte)X}));
                         Pointer++;
                         break;
                     case "CWN":
