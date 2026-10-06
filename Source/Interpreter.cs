@@ -7,7 +7,7 @@ namespace Surplus
 
     static class Interpreter 
     {
-        static int[] Memory = new int[1000]; // Work memory
+        static int[] Memory = new int[250]; // Work memory
         static Stack<int> StackMemory = new Stack<int>(); // Stack
         static int X; // X register
         static int Y; // Y register
