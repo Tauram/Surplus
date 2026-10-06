@@ -178,7 +178,7 @@ namespace Surplus
                         X = X << 1;
                         Pointer++;
                         break;
-                    case "LSR":
+                    case "ASR":
                         X = X >> 1;
                         Pointer++;
                         break;
